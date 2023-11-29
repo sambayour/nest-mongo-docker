@@ -1,3 +1,52 @@
+## Installation
+
+Clone project and install npm packages
+
+```bash
+$ npm install
+```
+
+## Running the app
+
+```bash
+# development
+$ npm run start
+
+# watch mode
+$ npm run start:dev
+
+# production mode
+$ npm run start:prod
+
+#docker
+#build
+$ docker build -t nest-mongo-docker .
+#run
+$ docker run --rm -p 3001:3001 nest-mongo-docker
+```
+
+To use docker make sure you have docker running.
+
+## Test
+
+```bash
+
+# e2e tests
+$ npm run test:e2e
+
+```
+
+## baseUrl
+
+This is the baseurl to use for testing the endpoint
+
+``
+
+## Endpoint Documentation(Postman)
+
+The endpoints are properly documented on postman and is publicly available here:
+[Postman](https://documenter.getpostman.com/view/9290980/2s9YeG5r9E#094aa947-e6d8-4654-9a2b-d4a551ec40c5)
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
