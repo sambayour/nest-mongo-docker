@@ -10,8 +10,8 @@ const consoleOptions = new transports.Console({
     format.prettyPrint(),
     format.align(),
     format.splat(),
-    format.printf((info) => `${info.timestamp} ${info.level}: ${info.message}`)
-  )
+    format.printf((info) => `${info.timestamp} ${info.level}: ${info.message}`),
+  ),
 });
 
 const fileOptions = new transports.File({
@@ -25,14 +25,14 @@ const fileOptions = new transports.File({
     format.timestamp(),
     format.splat(),
     format.prettyPrint(),
-    format.json()
-  )
+    format.json(),
+  ),
 });
 
 const winstonLogger = createLogger({
   level: 'info',
   transports: [fileOptions, consoleOptions],
-  exitOnError: false
+  exitOnError: false,
 });
 
 // create a stream object with a 'write' function that will be used by `morgan`
@@ -40,7 +40,7 @@ const winstonStream = {
   write: function (message) {
     // use the 'info' log level so the output will be picked up by both transports (file and console)
     winstonLogger.info(message);
-  }
+  },
 };
 
 export class WinstonLoggerService implements LoggerService {
@@ -64,16 +64,27 @@ export class WinstonLoggerService implements LoggerService {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { message: msg, name, stack, ...meta } = message;
 
-      return winstonLogger.error(msg, { context, stack: [trace || message.stack], ...meta });
+      return winstonLogger.error(msg, {
+        context,
+        stack: [trace || message.stack],
+        ...meta,
+      });
     }
 
     if ('object' === typeof message) {
       const { message: msg, ...meta } = message;
 
-      return winstonLogger.error(msg as string, { context, stack: [trace], ...meta });
+      return winstonLogger.error(msg as string, {
+        context,
+        stack: [trace],
+        ...meta,
+      });
     }
 
-    return winstonLogger.error(`[${context}] ${message}`, { context, stack: [trace] });
+    return winstonLogger.error(`[${context}] ${message}`, {
+      context,
+      stack: [trace],
+    });
   }
 
   public warn(message: any, context?: string): any {

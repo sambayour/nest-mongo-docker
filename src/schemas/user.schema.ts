@@ -8,7 +8,7 @@ export class User {
   @Prop({ unique: true })
   username: string;
 
-  @Prop({ select: false })
+  @Prop()
   password: string;
 
   @Prop({ default: now() })
