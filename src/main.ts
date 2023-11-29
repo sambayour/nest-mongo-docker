@@ -3,12 +3,9 @@ import { AppModule } from './app.module';
 import { ResponseTransformInterceptor } from './helpers/interceptors/response-transform.interceptor';
 import { AllExceptionsFilter } from './helpers/filters/exception.filter';
 import { Logger } from '@nestjs/common';
-import { WinstonLoggerService, winstonLogger } from './utils/winston';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
-    logger: new WinstonLoggerService(),
-  });
+  const app = await NestFactory.create(AppModule);
 
   const port = process.env.PORT ? Number(process.env.PORT) : 8082;
   app.setGlobalPrefix('api/v1');
@@ -18,8 +15,6 @@ async function bootstrap() {
 
   app.useGlobalInterceptors(new ResponseTransformInterceptor());
 
-  await app.listen(port, () =>
-    winstonLogger.info('App started on port %s', port),
-  );
+  await app.listen(port, () => console.log('App started on port ', port));
 }
 bootstrap();

@@ -1,6 +1,5 @@
 import { ArgumentsHost, Catch, HttpStatus, Logger } from '@nestjs/common';
 import { BaseExceptionFilter, HttpAdapterHost } from '@nestjs/core';
-import { winstonLogger } from '../../utils/winston';
 
 @Catch()
 export class AllExceptionsFilter extends BaseExceptionFilter {
@@ -15,7 +14,7 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
 
-    winstonLogger.error('exception \n %o', exception?.response);
+    console.log('exception ', exception?.response);
 
     let status = HttpStatus.INTERNAL_SERVER_ERROR;
 
